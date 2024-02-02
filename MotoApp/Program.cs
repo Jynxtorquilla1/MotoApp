@@ -6,6 +6,9 @@ var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext());
 AddEmployees(employeeRepository);
 AddManagers(employeeRepository);
 WriteAllToConsole(employeeRepository);
+var businessPartnerRepository = new SqlRepository<BusinessPartner>(new MotoAppDbContext());
+AddBusinessPartner(businessPartnerRepository);
+PrintBusinessPartners(businessPartnerRepository);
 
 static void AddEmployees(IRepository<Employee> employeeRepository)
 {
@@ -16,6 +19,14 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
 }
 
 
+static void AddBusinessPartner(IWriteRepository<BusinessPartner> businessPartnerRepository)
+{
+    businessPartnerRepository.Add(new BusinessPartner { Name = "Kurapol" });
+    businessPartnerRepository.Add(new BusinessPartner { Name = "Kaczkapol" });
+    businessPartnerRepository.Add(new BusinessPartner { Name = "Gołąbex" });
+    businessPartnerRepository.Save();
+}
+
 
 static void AddManagers(IWriteRepository<Manager> managerRepository)
 {
@@ -25,12 +36,33 @@ static void AddManagers(IWriteRepository<Manager> managerRepository)
     managerRepository.Save();
 }
 
-static void WriteAllToConsole(IReadRepository<IEntity> repository)
+//static void WriteAllToConsole(IReadRepository<IEntity> repository)
+//{
+//    var items = repository.GetAll();
+//    foreach(var item in items)
+//    {
+//        Console.WriteLine(item);
+//    }
+//}
+
+static void WriteAllToConsole<T>(IReadRepository<T> repository) where T : class, IEntity
 {
     var items = repository.GetAll();
-    foreach(var item in items)
+    foreach (var item in items)
     {
         Console.WriteLine(item);
     }
+}
+
+
+
+static void PrintBusinessPartners(IReadRepository<BusinessPartner> repository)
+{
+    var businessPartners = repository.GetAll();
+    foreach (var partner in businessPartners)
+    {
+        Console.WriteLine($"BusinessPartner Id: {partner.Id}, Name: {partner.Name}");
+    }
+    Console.Beep();
 }
 

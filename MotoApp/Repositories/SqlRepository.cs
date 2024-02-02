@@ -13,7 +13,7 @@ namespace MotoApp.Repositories
         public SqlRepository(DbContext dbContext)
         {
             _dbContext = dbContext;
-            _dbSet = dbContext.Set<T>();
+            _dbSet = dbContext.Set<T>();            
         }
 
         public IEnumerable<T> GetAll()
