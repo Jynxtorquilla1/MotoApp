@@ -45,7 +45,7 @@ static void AddManagers(IWriteRepository<Manager> managerRepository)
 //    }
 //}
 
-static void WriteAllToConsole<T>(IReadRepository<T> repository) where T : class, IEntity
+static void WriteAllToConsole(IReadRepository<Employee> repository) 
 {
     var items = repository.GetAll();
     foreach (var item in items)
