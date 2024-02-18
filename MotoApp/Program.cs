@@ -1,30 +1,65 @@
-﻿using MotoApp.Data;
+﻿//using MotoApp.Data;
+//using MotoApp.Entities;
+//using MotoApp.Repositories;
+//using MotoApp.Repositories.Extensions;
+
+//var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext());
+//AddEmployees(employeeRepository);
+
+//WriteAllToConsole(employeeRepository);
+//var businessPartnerRepository = new SqlRepository<BusinessPartner>(new MotoAppDbContext());
+
+//static void AddEmployees(IRepository<Employee> employeeRepository)
+//{
+//    var employees = new[]
+//    {
+//        new Employee { FirstName = "Kura" },
+//        new Employee { FirstName = "Kaczka" },
+//        new Employee { FirstName = "Gołąb" }
+//    };
+
+//    employeeRepository.AddBatch(employees);
+//}
+
+
+////    employeeRepository.Add(new Employee { FirstName = "Kura" });
+////    employeeRepository.Add(new Employee { FirstName = "Kaczka" });
+////    employeeRepository.Add(new Employee { FirstName = "Gołąb" });
+////    employeeRepository.Save();
+////}
+
+
+//static void WriteAllToConsole(IReadRepository<IEntity> repository)
+//{
+//    var items = repository.GetAll();
+//    foreach (var item in items)
+//    {
+//        Console.WriteLine(item);
+//    }
+//}
+
 using MotoApp.Entities;
+using MotoApp.Data;
 using MotoApp.Repositories;
 
-var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext());
+var context = new MotoAppDbContext();
+
+var employeeRepository = new SqlRepository<Employee>(context);
 AddEmployees(employeeRepository);
 AddManagers(employeeRepository);
 WriteAllToConsole(employeeRepository);
-var businessPartnerRepository = new SqlRepository<BusinessPartner>(new MotoAppDbContext());
+//WriteAllToConsole(businessPartnerRepository);
+
+var businessPartnerRepository = new SqlRepository<BusinessPartner>(context);
 AddBusinessPartner(businessPartnerRepository);
-PrintBusinessPartners(businessPartnerRepository);
+WriteAllToConsole(businessPartnerRepository);
 
 static void AddEmployees(IRepository<Employee> employeeRepository)
 {
-    employeeRepository.Add(new Employee { FirstName = "Kura" });
-    employeeRepository.Add(new Employee { FirstName = "Kaczka" });
-    employeeRepository.Add(new Employee { FirstName = "Gołąb" });
+    employeeRepository.Add(new Employee { FirstName = "Zenon" });
+    employeeRepository.Add(new Employee { FirstName = "Wiesława" });
+    employeeRepository.Add(new Employee { FirstName = "Wiesław" });
     employeeRepository.Save();
-}
-
-
-static void AddBusinessPartner(IWriteRepository<BusinessPartner> businessPartnerRepository)
-{
-    businessPartnerRepository.Add(new BusinessPartner { Name = "Kurapol" });
-    businessPartnerRepository.Add(new BusinessPartner { Name = "Kaczkapol" });
-    businessPartnerRepository.Add(new BusinessPartner { Name = "Gołąbex" });
-    businessPartnerRepository.Save();
 }
 
 
@@ -36,16 +71,15 @@ static void AddManagers(IWriteRepository<Manager> managerRepository)
     managerRepository.Save();
 }
 
-//static void WriteAllToConsole(IReadRepository<IEntity> repository)
-//{
-//    var items = repository.GetAll();
-//    foreach(var item in items)
-//    {
-//        Console.WriteLine(item);
-//    }
-//}
+static void AddBusinessPartner(IWriteRepository<BusinessPartner> businessPartnerRepository)
+{
+    businessPartnerRepository.Add(new BusinessPartner { Name = "MirekPol" });
+    businessPartnerRepository.Add(new BusinessPartner { Name = "WózTrans" });
+    businessPartnerRepository.Add(new BusinessPartner { Name = "BorysEx" });
+    businessPartnerRepository.Save();
+}
 
-static void WriteAllToConsole(IReadRepository<Employee> repository) 
+static void WriteAllToConsole(IReadRepository<IEntity> repository)
 {
     var items = repository.GetAll();
     foreach (var item in items)
@@ -55,14 +89,4 @@ static void WriteAllToConsole(IReadRepository<Employee> repository)
 }
 
 
-
-static void PrintBusinessPartners(IReadRepository<BusinessPartner> repository)
-{
-    var businessPartners = repository.GetAll();
-    foreach (var partner in businessPartners)
-    {
-        Console.WriteLine($"BusinessPartner Id: {partner.Id}, Name: {partner.Name}");
-    }
-    Console.Beep();
-}
 
