@@ -5,16 +5,15 @@ using MotoApp.Repositories;
 using MotoApp.Repositories.Extensions;
 using System.ComponentModel.DataAnnotations;
 
-var itemAdded = new ItemAdded(EmployeeAdded);
+var itemAdded = new ItemAdded<Employee>(EmployeeAdded);
 var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext(), itemAdded);
 
 AddEmployees(employeeRepository);
 WriteAllToConsole(employeeRepository);
 
-static void EmployeeAdded(object item)
+static void EmployeeAdded(Employee item)
 {
-    var emoloyee =(Employee)item;
-    Console.WriteLine($"{emoloyee.FirstName} added");
+    Console.WriteLine($"{item.FirstName} added");
 }
 
 static void AddEmployees(IRepository<Employee> employeeRepository)
