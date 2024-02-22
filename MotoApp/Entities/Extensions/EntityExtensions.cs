@@ -1,8 +1,5 @@
-﻿
-
-using System.Text.Json;
-
-namespace MotoApp.Entities.Extensions;
+﻿using System.Text.Json;
+ namespace MotoApp.Entities.Extensions;
 
 public static class EntityExtensions
 {
